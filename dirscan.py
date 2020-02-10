@@ -23,7 +23,7 @@ async def main():
 if __name__ == '__main__':
     start_time = time.time()
     argv = parse_args()
-    urls_file, dict_file = argv.urls, argv.paths
+    urls_file, dict_file = argv.target, argv.path
     queue_put(urls_file, dict_file)
     asyncio.run(main())
     print(f'Cost time: {time.time() - start_time}')
