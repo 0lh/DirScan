@@ -1,0 +1,7 @@
+Url|Status Code|Title|Content_Length
+http://112.65.142.86:8000// | 200 | Index of / | 1320
+http://117.144.181.180:80// | 200 | Welcome to nginx! | 612
+http://112.65.142.86:8000/icons/ | 200 | Index of /icons | 73983
+http://120.55.139.114:80/h5/ | 200 | None | 4915
+https://118.123.2.232:443// | 200 | None | 8
+http://120.55.139.114:80// | 200 | None | 2326
