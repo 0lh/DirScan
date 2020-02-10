@@ -6,7 +6,6 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # custom
-*.txt
 *.log
 *.db
 # User-specific stuff
@@ -103,7 +102,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -239,10 +237,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # custom
-logs/
-data/
-results/
-1.txt
+
+*.txt
 扫描前取字典.py
 DirScan_v6.py
 01 - 应该存在的路径.txt

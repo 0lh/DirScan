@@ -1,6 +1,0 @@
-http://140.143.230.35/test5/test5.html | 200 | None | 18
-http://140.143.230.35/test1/ | 403 | 403 Forbidden | 555
-http://140.143.230.35/test1 | 403 | 403 Forbidden | 555
-http://140.143.230.35/test1 | 403 | 403 Forbidden | 555
-http://140.143.230.35/icons | 403 | 403 Forbidden | 555
-http://140.143.230.35/img | 403 | 403 Forbidden | 555
