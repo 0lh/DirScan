@@ -15,7 +15,7 @@ python3 dirscan.py --target [source urls file] --path [dict file]
 - 主要结合响应码和其他因素判断网站路径存活概率
 - 对命中路径添加到列表，Counter 模块进行计数，计数入库sqlite
 - 对返回大量200的网站取消继续扫描
-- 扫描结果保存CSV格式，分为html返回（url  |  status code | title | | CL） 和 json返回 （url  |  status code | JSON | CL信息），二者皆无返回None
+- 扫描结果保存CSV格式，分为html返回（url  |  status code | title | CL） 和 json返回 （url  |  status code | JSON | CL信息），二者皆无返回None
 
 
 #### 多因素分析常见响应码，判断网站是否有潜在利用价值
