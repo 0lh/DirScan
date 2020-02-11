@@ -5,9 +5,16 @@ from collections import Counter
 from lib.common import get_random_url
 from lib.db import save_result
 from conf.config import SAVE_FILE_01, SAVE_FILE_02, SAVE_FILE_03, SAVE_FILE_04, SAVE_FILE_05
+from lib.queue_put import queue_put_url
+from lib.cmdline import parse_args
 
 bad_url_set = set()
 code_200_list = []
+# dir_dict = 'D:\\Tools\\自动化脚本\\DirScan\\data\\dir_dict.txt'
+# filename_dict = 'D:\\Tools\\自动化脚本\\DirScan\\data\\filename_dict.txt'
+
+argv = parse_args()
+dir_dict, filename_dict = argv.dirs, argv.filenames
 
 
 async def judge_path_status(client, q):
@@ -48,6 +55,7 @@ async def judge_path_status(client, q):
                                         else:
                                             print(f'{url_path} 可能存在')
                                             await save_result(SAVE_FILE_02, output_item, urlparse(url_path)[2])
+                                            await queue_put_url(url_path, dir_dict, filename_dict)
                                     else:
                                         random_content_length = len(random_url_response.text)
                                         root_content_length = len(response.text)
@@ -56,9 +64,11 @@ async def judge_path_status(client, q):
                                         else:  # conteng-length不想等说明网站有大概率正常，访问正常网站和随机url正常来说content-length就应该不一样
                                             print(f"{url_path} 可能正常")
                                             await save_result(SAVE_FILE_01, output_item, urlparse(url_path)[2])
+                                            await queue_put_url(url_path, dir_dict, filename_dict)
                                 elif random_status_code == 404:
                                     print(f'{url_path} 应该存在')
                                     await save_result(SAVE_FILE_01, output_item, urlparse(url_path)[2])
+                                    await queue_put_url(url_path, dir_dict, filename_dict)
                     else:  # 添加bad_url_set
                         bad_url_set.add(current_root_url)
                 elif status_code == 403:
@@ -69,16 +79,20 @@ async def judge_path_status(client, q):
                         if random_status_code == 404:
                             print(f'{url_path} 应该ok')
                             await save_result(SAVE_FILE_01, output_item, urlparse(url_path)[2])
+                            await queue_put_url(url_path, dir_dict, filename_dict)
                         else:
                             print(f'{url_path} 应该不存在')
                 elif '30' in str(status_code):
                     print(f'{url_path} 可能存在或者跳转404')
                     await save_result(SAVE_FILE_02, output_item, urlparse(url_path)[2])
+                    await queue_put_url(url_path, dir_dict, filename_dict)
                 elif status_code in [401, 415]:
                     print(f'{url_path} 应该存在')
                     await save_result(SAVE_FILE_01, output_item, urlparse(url_path)[2])
+                    await queue_put_url(url_path, dir_dict, filename_dict)
                 else:
                     await save_result(SAVE_FILE_05, output_item, urlparse(url_path)[2])
+                    await queue_put_url(url_path, dir_dict, filename_dict)
             else:
                 print(url_path, ' => 响应为None')
         else:

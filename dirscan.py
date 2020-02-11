@@ -2,7 +2,7 @@ import asyncio
 import httpx
 import time
 from core.core import judge_path_status
-from lib.queue_put import q, queue_put, queue_put_url
+from lib.queue_put import q, queue_put
 from lib.cmdline import parse_args
 from conf.config import COROS_NUM
 
@@ -23,7 +23,7 @@ async def main():
 if __name__ == '__main__':
     start_time = time.time()
     argv = parse_args()
-    urls_file, dict_file = argv.target, argv.path
-    queue_put(urls_file, dict_file)
+    urls_file, dict_file, filename_dict = argv.target, argv.dirs, argv.filenames
+    queue_put(urls_file, dict_file, filename_dict)
     asyncio.run(main())
     print(f'Cost time: {time.time() - start_time}')
