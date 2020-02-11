@@ -1,20 +1,21 @@
 # DirScan
-DirScan是一款探测网站路径存活的工具,扫描批量网站的路径(目录或文件或Api)，快速发现薄弱点
+DirScan是一款探测网站路径的工具,批量扫描网站的路径(目录或文件名或Api)，快速发现目标薄弱点
 
 #### Usage
 --------------------------------------------------------------------------------
 推荐使用python3.8以上版本
 ```
-python3 dirscan.py --target [source urls file] --path [dict file]
+python3 dirscan.py --target [source urls file] --dirs [dir dict file] --filenames [filename dict file]
 ```
 
 
 #### 主要功能：
 --------------------------------------------------------------------------------
-- 实现异步协程(asyncio + httpx)批量扫描路径
+- 实现异步协程(asyncio + httpx)快速扫描目标
 - 主要结合响应码和其他因素判断网站路径存活概率
+- 对扫描过程中发现的可用路径，继续拼接字典扫描
 - 对命中路径添加到列表，Counter 模块进行计数，计数入库sqlite
-- 对返回大量200的网站取消继续扫描
+- 对响应大量200状态码的网站取消继续扫描
 - 扫描结果保存CSV格式，分为html返回（url  |  status code | title | CL） 和 json返回 （url  |  status code | JSON | CL信息），二者皆无返回None
 
 
@@ -47,7 +48,6 @@ python3 dirscan.py --target [source urls file] --path [dict file]
 
 #### 后续计划
 --------------------------------------------------------------------------------
-- 对 正常路径 和 可能存在 的路径，继续拼接目录后添加到queue扫描
 - 单个网站扫描频率控制或者配置代理，防止封IP
 - 目标路径数量过大时，进行大任务拆分
 
