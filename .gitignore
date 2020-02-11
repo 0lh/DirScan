@@ -237,7 +237,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # custom
-
 *.txt
 扫描前取字典.py
 DirScan_v6.py

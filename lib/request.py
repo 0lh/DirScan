@@ -1,8 +1,21 @@
 from httpx.exceptions import HTTPError
 from lib.db import save_result
 from conf.config import ERROR_LOG_PATH
+from opnieuw import retry_async, RetryException
+
+STANDARD_HTTP_EXCEPTIONS = (
+    ConnectionError,
+    EOFError,
+    RetryException,
+
+)
 
 
+@retry_async(
+    retry_on_exceptions=STANDARD_HTTP_EXCEPTIONS,
+    max_calls_total=3,
+    retry_window_after_first_call_in_seconds=60,
+)
 async def get_req(client, url, redirect=False):
     '''
     异步请求协程
